@@ -60,6 +60,13 @@ height: 20vh;
     font-size: 12px;
 }
 
+#tomorrows-date {
+    font-size: 2vh;
+    font-weight: bold;
+    /* line-height: 3vh; */
+
+}
+
 #col-box-flex {
     display: flex;
 }

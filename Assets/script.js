@@ -33,16 +33,30 @@ searchButton.addEventListener('click', function(event) {
     
     let today=new Date();
     let dayOfYear=today.getDate();
+    // console.log(dayOfYear+1);
+
     let monthOfYear=today.getMonth()+1; 
     let year=today.getFullYear(); 
 
+                //ALL NEEDED DATES
+
     let todaysDate=(monthOfYear) + "/" + (dayOfYear) + "/" + (year);
 
-    //big white header text
+    let tomorrowsDate=(monthOfYear) + "/" + (dayOfYear + 1) + "/" + (year);
+
+    let twoDaysDate=(monthOfYear) + "/" + (dayOfYear + 2) + "/" + (year);
+
+    let threeDaysDate=(monthOfYear) + "/" + (dayOfYear + 3) + "/" + (year);
+
+    let fourDaysDate=(monthOfYear) + "/" + (dayOfYear + 4) + "/" + (year);
+
+    let fiveDaysDate=(monthOfYear) + "/" + (dayOfYear + 4) + "/" + (year);
+
+          //big white header text
    
     document.getElementById("big-white-header").textContent=`${userCityChoice} ${todaysDate} ${iconOneDay}`;
 
-    document.getElementById("big-white-temp").textContent="Temp: " + (tempOneDay);
+    document.getElementById("big-white-temp").textContent="Temp: " + (tempOneDay) + '\xB0' + "F";
 
     // document.getElementById("big-white-wind").textContent="Wind: " + (`${windSpeed}`) + " MPH";
 
@@ -77,7 +91,11 @@ searchButton.addEventListener('click', function(event) {
 
    let fiveDaysTemp= dataForecast.list[39].main.temp;
 
-    //5 day wind
+   let tomorrowsIcon=(dataForecast.list[7].weather[0].icon);
+  //  console.log(tomorrowsIcon);
+
+
+                      //5 day wind
 
    let tomorrowsWind= dataForecast.list[7].wind.speed;
 
@@ -89,35 +107,29 @@ searchButton.addEventListener('click', function(event) {
 
    let fiveDaysWind= dataForecast.list[39].wind.speed;
 
-   //5 days humidity
+                    //5 days humidity
   
    let tomorrowsHumidity= dataForecast.list[7].main.humidity;
-   console.log(tomorrowsHumidity);
 
    let twoDaysHumidity= dataForecast.list[15].main.humidity;
-   console.log(twoDaysHumidity);
 
    let threeDaysHumidity= dataForecast.list[23].main.humidity;
-   console.log(threeDaysHumidity);
-
+   
    let fourDaysHumidity= dataForecast.list[31].main.humidity;
-   console.log(fourDaysHumidity);
 
    let fiveDaysHumidity= dataForecast.list[39].main.humidity;
-   console.log(fiveDaysHumidity);
 
-   document.getElementById("tomorrow-temp").textContent="Temp: " + (tomorrowsTemp);
+   document.getElementById("tomorrow-date").textContent=(tomorrowsDate);
+
+   document.getElementById("tomorrow-icon").textContent=(tomorrowsIcon);
+
+   document.getElementById("tomorrow-temp").textContent="Temp: " + (tomorrowsTemp)  + '\xB0' + "F";
 
    document.getElementById("tomorrow-wind").textContent="Wind: " + (tomorrowsWind) + " MPH";
 
    document.getElementById("tomorrow-humidity").textContent="Humidity: " + (tomorrowsHumidity) + " %";
 
   //  document.getElementById(tomorrow)
-
-
-
-
-    
 
 
     })
