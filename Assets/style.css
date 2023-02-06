@@ -46,19 +46,18 @@ height: 20vh;
 }
 .big-white-text {
     line-height: 2vh;
-    font-size: 13px;
+    font-size: 2vh;
     margin-left: 10px;
 }
-
-
 
 #forecast-boxes {
     border: 1px solid rgb(50, 50, 96);
     margin: 3px 10px 0 10px;
     color: white;
     background-color: rgb(50, 50, 96);
-    height: 150px;
-    line-height: 27px;
+    height: 25vh;
+    /* line-height: 2vh; */
+    font-size: 12px;
 }
 
 #col-box-flex {
@@ -67,4 +66,8 @@ height: 20vh;
 
 article {
     display: flex;
+}
+#forecast-day-1 {
+    color:white;
+
 }
