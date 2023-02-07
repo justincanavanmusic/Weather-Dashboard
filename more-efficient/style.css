@@ -1,0 +1,80 @@
+.jumbotron {
+    text-align: center;
+    background-color: rgb(50, 50, 96);
+    color: white;
+}
+.col-sm-2 {
+    text-align: left;
+    
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+#weather-report {
+border: 1px black solid;
+height: 20vh;
+}
+
+#search-button {
+    margin-top: 10px;
+}
+
+#jc-search-margin {
+    margin-left: .5vw;
+}
+
+.col-6 {
+    width: 100%;
+}
+
+#days {
+    border: darkblue solid 1px;
+    background-color: rgb(44, 44, 84);
+    width: 10vw;
+}
+
+.text-start {
+    margin-top: 10px;
+    font-weight: bold;  
+}
+
+#big-white-header {
+    margin: 5px 5px 10px 10px;
+    
+}
+.big-white-text {
+    line-height: 2vh;
+    font-size: 2vh;
+    margin-left: 10px;
+}
+
+#forecast-boxes {
+    border: 1px solid rgb(50, 50, 96);
+    margin: 3px 10px 0 10px;
+    color: white;
+    background-color: rgb(50, 50, 96);
+    height: 25vh;
+    line-height: 2vh;
+    font-size: 12px;
+}
+
+#tomorrows-date {
+    font-size: 2vh;
+    font-weight: bold;
+    /* line-height: 3vh; */
+
+}
+
+#col-box-flex {
+    display: flex;
+}
+
+article {
+    display: flex;
+}
+#forecast-day-1 {
+    color:white;
+
+}
