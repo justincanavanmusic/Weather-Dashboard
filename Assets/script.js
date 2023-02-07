@@ -33,7 +33,6 @@ searchButton.addEventListener('click', function() {
    
     cities.push(userCityChoice);
     //pushes the tex
-
     localStorage.setItem("cities", (JSON.stringify(cities)));
     //converts "cities" into JSON string
    
@@ -82,22 +81,20 @@ searchButton.addEventListener('click', function() {
 
     console.log(dataForecast);
 
-  
                                   //5 day temp
     //use dt (date time) instead of w/ for loop, start
     //if statement dt
 
   // let tomorrowsIcon=dataForecast.list[0].weather[0].icon;
   let tomorrowsIcon="http://openweathermap.org/img/w/" + dataForecast.list[0].weather[0].icon + ".png";
-  
-  // let icon=document.createElement("img");
-  // icon.setAttribute("src", iconOneDay);
-  // icon.setAttribute("id", "icon-one-day");
-  // console.log(dataForecast.list[0].weather[0].icon);
+  document.getElementById("first-box").textContent = "";
   let icon1=document.createElement("img");
   icon1.setAttribute("src", tomorrowsIcon);
   icon1.setAttribute("id", "tomorrow-icon");
+ 
   document.getElementById("first-box").appendChild(icon1);
+
+  console.log(icon1);
   
   let twoDaysIcon="http://openweathermap.org/img/w/" + dataForecast.list[8].weather[0].icon + ".png";
   let threeDaysIcon="http://openweathermap.org/img/w/" + dataForecast.list[16].weather[0].icon + ".png";
@@ -144,12 +141,16 @@ searchButton.addEventListener('click', function() {
    document.getElementById("two-days-wind").textContent="Wind: " + (twoDaysWind) + " MPH";
    document.getElementById("two-days-humidity").textContent="Humidity: " + (twoDaysHumidity) + " %";
   
-  
+                    //3 day forecast
+
    document.getElementById("three-days-date").textContent=(threeDaysDate);
    //  document.getElementById("two-days-icon").textContent=(tomorrowsIcon);
     document.getElementById("three-days-temp").textContent="Temp: " + (threeDaysTemp)  + '\xB0' + "F";
     document.getElementById("three-days-wind").textContent="Wind: " + (threeDaysWind) + " MPH";
     document.getElementById("three-days-humidity").textContent="Humidity: " + (threeDaysHumidity) + " %";
+
+                  //4 day forecast
+
 
     document.getElementById("four-days-date").textContent=(fourDaysDate);
     //  document.getElementById("two-days-icon").textContent=(tomorrowsIcon);
@@ -157,16 +158,15 @@ searchButton.addEventListener('click', function() {
      document.getElementById("four-days-wind").textContent="Wind: " + (fourDaysWind) + " MPH";
      document.getElementById("four-days-humidity").textContent="Humidity: " + (fourDaysHumidity) + " %";
 
+                    //5 day forecast
+
+
      document.getElementById("five-days-date").textContent=(fiveDaysDate);
     //  document.getElementById("two-days-icon").textContent=(tomorrowsIcon);
      document.getElementById("five-days-temp").textContent="Temp: " + (fiveDaysTemp)  + '\xB0' + "F";
      document.getElementById("five-days-wind").textContent="Wind: " + (fiveDaysWind) + " MPH";
      document.getElementById("five-days-humidity").textContent="Humidity: " + (fiveDaysHumidity) + " %";
 
-
-   
-
-  //  document.getElementById(tomorrow)
 displayHistory();
                     //displayHistory function
 function displayHistory() {
@@ -193,30 +193,101 @@ function displayHistory() {
   // console.log(historyList);
   
   
-  
-  
   searchHistoryButtons.addEventListener('click', function(){
   // console.log("button");
   document.getElementById("big-white-header").textContent=(searchHistoryButtons.textContent) + " " + "(" + (todaysDate + ")");
 let searchHistoryButtonText=searchHistoryButtons.textContent;
 
-  let oneDayURL = baseURL + "data/2.5/weather?q=" + searchHistoryButtonText + "&appid=" + apiKey + "&units=imperial";
+  let searchHistoryURL = baseURL + "data/2.5/weather?q=" + searchHistoryButtonText + "&appid=" + apiKey + "&units=imperial";
+
+  console.log(searchHistoryURL);
   
-  document.getElementById("big-white-temp").textContent="Temp: " + (tempOneDay) + '\xB0' + "F";
-      document.getElementById("big-white-wind").textContent="Wind: " + (windSpeedOneDay) + " MPH";
-      document.getElementById("big-white-humidity").textContent="Humidity: " + (humidityOneDay) + " %";
+
+fetch(searchHistoryURL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(dataSearch) {
+
+      console.log(dataSearch);
+      
+      let windSearchButton=(dataSearch.wind.speed);
+      let humiditySearchButton=(dataSearch.main.humidity);
+      let tempSearchButton=(dataSearch.main.temp);
+
+      document.getElementById("big-white-temp").textContent="Temp: " + (tempSearchButton) + '\xB0' + "F";
+      document.getElementById("big-white-wind").textContent="Wind: " + (windSearchButton) + " MPH";
+      document.getElementById("big-white-humidity").textContent="Humidity: " + (humiditySearchButton) + " %";
+
+    })
+
+    let search5DayURL = baseURL + "data/2.5/forecast?q=" + searchHistoryButtonText + "&appid=" + apiKey + "&units=imperial";
+
+ fetch(search5DayURL)  
+      .then(function(response) {
+        return response.json()
+      })
+      .then(function(data5day){
+        let tomorrowsTemp= data5day.list[0].main.temp;
+        let twoDaysTemp= data5day.list[8].main.temp;
+        let threeDaysTemp= data5day.list[16].main.temp;
+        let fourDaysTemp= data5day.list[24].main.temp;
+        let fiveDaysTemp= data5day.list[32].main.temp;
+
+        let tomorrowsWind= data5day.list[0].wind.speed;
+        let twoDaysWind= data5day.list[8].wind.speed;
+        let threeDaysWind= data5day.list[16].wind.speed;
+        let fourDaysWind= data5day.list[24].wind.speed;
+        let fiveDaysWind= data5day.list[32].wind.speed;
+
+        let tomorrowsHumidity= data5day.list[0].main.humidity;
+        let twoDaysHumidity= data5day.list[8].main.humidity;
+        let threeDaysHumidity= data5day.list[16].main.humidity;
+        let fourDaysHumidity= data5day.list[24].main.humidity;
+        let fiveDaysHumidity= data5day.list[32].main.humidity;
+
+        document.getElementById("tomorrow-temp").textContent="Temp: " + (tomorrowsTemp)  + '\xB0' + "F";
+        document.getElementById("tomorrow-wind").textContent="Wind: " + (tomorrowsWind) + " MPH";
+        document.getElementById("tomorrow-humidity").textContent="Humidity: " + (tomorrowsHumidity) + " %";
+
+        document.getElementById("two-days-date").textContent=(twoDaysDate);
+  //  document.getElementById("two-days-icon").textContent=(tomorrowsIcon);
+   document.getElementById("two-days-temp").textContent="Temp: " + (twoDaysTemp)  + '\xB0' + "F";
+   document.getElementById("two-days-wind").textContent="Wind: " + (twoDaysWind) + " MPH";
+   document.getElementById("two-days-humidity").textContent="Humidity: " + (twoDaysHumidity) + " %";
   
+   document.getElementById("three-days-date").textContent=(threeDaysDate);
+   //  document.getElementById("two-days-icon").textContent=(tomorrowsIcon);
+    document.getElementById("three-days-temp").textContent="Temp: " + (threeDaysTemp)  + '\xB0' + "F";
+    document.getElementById("three-days-wind").textContent="Wind: " + (threeDaysWind) + " MPH";
+    document.getElementById("three-days-humidity").textContent="Humidity: " + (threeDaysHumidity) + " %";
+
+    document.getElementById("four-days-date").textContent=(fourDaysDate);
+    //  document.getElementById("two-days-icon").textContent=(tomorrowsIcon);
+     document.getElementById("four-days-temp").textContent="Temp: " + (fourDaysTemp)  + '\xB0' + "F";
+     document.getElementById("four-days-wind").textContent="Wind: " + (fourDaysWind) + " MPH";
+     document.getElementById("four-days-humidity").textContent="Humidity: " + (fourDaysHumidity) + " %";
+
+     document.getElementById("five-days-date").textContent=(fiveDaysDate);
+    //  document.getElementById("two-days-icon").textContent=(tomorrowsIcon);
+     document.getElementById("five-days-temp").textContent="Temp: " + (fiveDaysTemp)  + '\xB0' + "F";
+     document.getElementById("five-days-wind").textContent="Wind: " + (fiveDaysWind) + " MPH";
+     document.getElementById("five-days-humidity").textContent="Humidity: " + (fiveDaysHumidity) + " %";
+
+      })
+
+    
+   
+   
+   
+   
   
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
   
 });
-
 
 
   }}
