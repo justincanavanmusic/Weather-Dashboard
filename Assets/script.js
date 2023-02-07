@@ -6,11 +6,21 @@ let userTextInput = document.getElementById('exampleFormControlInput1')
 
 let baseURL = "https://api.openweathermap.org/"
 
+let cities=JSON.parse(localStorage.getItem("cities")) || [];
 
-searchButton.addEventListener('click', function(event) {
 
-   let userCityChoice=userTextInput.value;
+                    //event listener
+searchButton.addEventListener('click', function() {
+
+  let userCityChoice=userTextInput.value;
     // console.log(city);
+  //cities=cities that ive saved
+  // let cities=JSON.parse(localStorage.getItem("cities")) || [];
+
+  cities.push(userCityChoice);
+
+    localStorage.setItem("cities", (JSON.stringify(cities)));
+
 
    let oneDayURL = baseURL + "data/2.5/weather?q=" + userCityChoice + "&appid=" + apiKey + "&units=imperial";
 
@@ -27,7 +37,10 @@ searchButton.addEventListener('click', function(event) {
     let windSpeedOneDay=(dataOneDay.wind.speed);
     let humidityOneDay=(dataOneDay.main.humidity);
     let tempOneDay=(dataOneDay.main.temp);
-    let iconOneDay=(dataOneDay.weather[0].icon);
+    let iconOneDay = "http://openweathermap.org/img/w/" + dataOneDay.weather[0].icon + ".png";
+
+    document.getElementById("icon-one-day").setAttribute("src", iconOneDay);
+
 
     // todays date
     
@@ -53,8 +66,13 @@ searchButton.addEventListener('click', function(event) {
     let fiveDaysDate=(monthOfYear) + "/" + (dayOfYear + 4) + "/" + (year);
 
           //big white header text
+
+    let imageEl=document.createElement("img");
+    imageEl.setAttribute("src", iconOneDay);
    
-    document.getElementById("big-white-header").textContent=`${userCityChoice} ${todaysDate} ${iconOneDay}`;
+    document.getElementById("big-white-header").textContent=`${userCityChoice} ${todaysDate}`;
+
+    document.getElementById("big-white-header").appendChild(imageEl);
 
     document.getElementById("big-white-temp").textContent="Temp: " + (tempOneDay) + '\xB0' + "F";
 
@@ -80,44 +98,46 @@ searchButton.addEventListener('click', function(event) {
 
     //used 12:00pm times
     //5 day temp
+    //use dt (date time) instead of w/ for loop, start
+    //if statement dt
 
-   let tomorrowsTemp= dataForecast.list[7].main.temp;
+   let tomorrowsTemp= dataForecast.list[0].main.temp;
 
-   let twoDaysTemp= dataForecast.list[15].main.temp;
+   let twoDaysTemp= dataForecast.list[8].main.temp;
 
-   let threeDaysTemp= dataForecast.list[23].main.temp;
+   let threeDaysTemp= dataForecast.list[16].main.temp;
 
-   let fourDaysTemp= dataForecast.list[31].main.temp;
+   let fourDaysTemp= dataForecast.list[24].main.temp;
 
-   let fiveDaysTemp= dataForecast.list[39].main.temp;
+   let fiveDaysTemp= dataForecast.list[32].main.temp;
 
-   let tomorrowsIcon=(dataForecast.list[7].weather[0].icon);
+   let tomorrowsIcon=dataForecast.list[0].weather[0].icon;
   //  console.log(tomorrowsIcon);
 
 
-                      //5 day wind
+            //5 day wind
 
-   let tomorrowsWind= dataForecast.list[7].wind.speed;
+   let tomorrowsWind= dataForecast.list[0].wind.speed;
 
-   let twoDaysWind= dataForecast.list[15].wind.speed;
+   let twoDaysWind= dataForecast.list[8].wind.speed;
 
-   let threeDaysWind= dataForecast.list[23].wind.speed;
+   let threeDaysWind= dataForecast.list[16].wind.speed;
 
-   let fourDaysWind= dataForecast.list[31].wind.speed;
+   let fourDaysWind= dataForecast.list[24].wind.speed;
 
-   let fiveDaysWind= dataForecast.list[39].wind.speed;
+   let fiveDaysWind= dataForecast.list[32].wind.speed;
 
                     //5 days humidity
   
-   let tomorrowsHumidity= dataForecast.list[7].main.humidity;
+   let tomorrowsHumidity= dataForecast.list[0].main.humidity;
 
-   let twoDaysHumidity= dataForecast.list[15].main.humidity;
+   let twoDaysHumidity= dataForecast.list[8].main.humidity;
 
-   let threeDaysHumidity= dataForecast.list[23].main.humidity;
+   let threeDaysHumidity= dataForecast.list[16].main.humidity;
    
-   let fourDaysHumidity= dataForecast.list[31].main.humidity;
+   let fourDaysHumidity= dataForecast.list[24].main.humidity;
 
-   let fiveDaysHumidity= dataForecast.list[39].main.humidity;
+   let fiveDaysHumidity= dataForecast.list[32].main.humidity;
 
    document.getElementById("tomorrow-date").textContent=(tomorrowsDate);
 
@@ -130,6 +150,28 @@ searchButton.addEventListener('click', function(event) {
    document.getElementById("tomorrow-humidity").textContent="Humidity: " + (tomorrowsHumidity) + " %";
 
   //  document.getElementById(tomorrow)
+displayHistory();
+
+function displayHistory() {
+  // let userCityChoice=localStorage.getItem("cities")
+  for (let i = 0; i < cities.length; i++) {
+    
+  let cities=JSON.parse(localStorage.getItem("cities")) || [];
+  // console.log(cities);
+  //loop through cities, do this for each one
+  // console.log(userCityChoice);
+  let historyButton=document.createElement("button")
+  historyButton.textContent=cities[i];
+  // console.log(historyButton);
+  historyButton.classList.add("btn", "btn-primary");
+  
+  let historyList=document.getElementById("history-button");
+  historyList.appendChild(historyButton);
+    // console.log(cities);
+  // console.log(historyList);
+
+  
+  }}
 
 
     })
