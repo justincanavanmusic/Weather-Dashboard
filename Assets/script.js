@@ -6,6 +6,22 @@ let userTextInput = document.getElementById('exampleFormControlInput1')
 
 let baseURL = "https://api.openweathermap.org/"
 
+let today=new Date();
+let dayOfYear=today.getDate();
+// console.log(dayOfYear+1);
+
+let monthOfYear=today.getMonth()+1; 
+let year=today.getFullYear(); 
+
+            //ALL NEEDED DATES
+
+let todaysDate=(monthOfYear) + "/" + (dayOfYear) + "/" + (year);
+let tomorrowsDate=(monthOfYear) + "/" + (dayOfYear + 1) + "/" + (year);
+let twoDaysDate=(monthOfYear) + "/" + (dayOfYear + 2) + "/" + (year);
+let threeDaysDate=(monthOfYear) + "/" + (dayOfYear + 3) + "/" + (year);
+let fourDaysDate=(monthOfYear) + "/" + (dayOfYear + 4) + "/" + (year);
+let fiveDaysDate=(monthOfYear) + "/" + (dayOfYear + 5) + "/" + (year);
+
 let cities=JSON.parse(localStorage.getItem("cities")) || [];
 
 //makes the "cities" key into an object in local storage
@@ -38,41 +54,21 @@ searchButton.addEventListener('click', function() {
     let tempOneDay=(dataOneDay.main.temp);
     let iconOneDay ="" + "http://openweathermap.org/img/w/" + dataOneDay.weather[0].icon + ".png";
 
-    document.getElementById("icon-one-day").setAttribute("src", iconOneDay);
-   
-   
-    // todays date 
-    let today=new Date();
-    let dayOfYear=today.getDate();
-    // console.log(dayOfYear+1);
-
-    let monthOfYear=today.getMonth()+1; 
-    let year=today.getFullYear(); 
-
-                //ALL NEEDED DATES
-
-    let todaysDate=(monthOfYear) + "/" + (dayOfYear) + "/" + (year);
-    let tomorrowsDate=(monthOfYear) + "/" + (dayOfYear + 1) + "/" + (year);
-    let twoDaysDate=(monthOfYear) + "/" + (dayOfYear + 2) + "/" + (year);
-    let threeDaysDate=(monthOfYear) + "/" + (dayOfYear + 3) + "/" + (year);
-    let fourDaysDate=(monthOfYear) + "/" + (dayOfYear + 4) + "/" + (year);
-    let fiveDaysDate=(monthOfYear) + "/" + (dayOfYear + 5) + "/" + (year);
-
-                  //big white box
-    // function fillWhiteBox() {
+    // document.getElementById("icon-one-day").setAttribute("src", iconOneDay);
+                            //big white box
+    
       let icon=document.createElement("img");
       icon.setAttribute("src", iconOneDay);
       icon.setAttribute("id", "icon-one-day");
-   
+
       document.getElementById("big-white-header").textContent=(userCityChoice) + " " + "(" + (todaysDate + ")");
       document.getElementById("big-white-header").appendChild(icon);
       document.getElementById("big-white-temp").textContent="Temp: " + (tempOneDay) + '\xB0' + "F";
       document.getElementById("big-white-wind").textContent="Wind: " + (windSpeedOneDay) + " MPH";
       document.getElementById("big-white-humidity").textContent="Humidity: " + (humidityOneDay) + " %";
-    // }
-    // fillWhiteBox();
+ 
 
-    //5 day forecast
+                            //5 day forecast
 
     let forecastURL = baseURL + "data/2.5/forecast?q=" + userCityChoice + "&appid=" + apiKey + "&units=imperial";
 
@@ -86,17 +82,27 @@ searchButton.addEventListener('click', function() {
 
     console.log(dataForecast);
 
-    //used 12:00pm times
-    //5 day temp
+  
+                                  //5 day temp
     //use dt (date time) instead of w/ for loop, start
     //if statement dt
 
   // let tomorrowsIcon=dataForecast.list[0].weather[0].icon;
-  // let twoDaysIcon=dataForecast.list[0].weather[0].icon;
-  // let tomorrowsIcon=dataForecast.list[0].weather[0].icon;
-  // let tomorrowsIcon=dataForecast.list[0].weather[0].icon;
-  // let tomorrowsIcon=dataForecast.list[0].weather[0].icon;
-
+  let tomorrowsIcon="http://openweathermap.org/img/w/" + dataForecast.list[0].weather[0].icon + ".png";
+  
+  // let icon=document.createElement("img");
+  // icon.setAttribute("src", iconOneDay);
+  // icon.setAttribute("id", "icon-one-day");
+  // console.log(dataForecast.list[0].weather[0].icon);
+  let icon1=document.createElement("img");
+  icon1.setAttribute("src", tomorrowsIcon);
+  icon1.setAttribute("id", "tomorrow-icon");
+  document.getElementById("first-box").appendChild(icon1);
+  
+  let twoDaysIcon="http://openweathermap.org/img/w/" + dataForecast.list[8].weather[0].icon + ".png";
+  let threeDaysIcon="http://openweathermap.org/img/w/" + dataForecast.list[16].weather[0].icon + ".png";
+  let fourDaysIcon="http://openweathermap.org/img/w/" + dataForecast.list [24].weather[0].icon + ".png";
+  let fiveDaysIcon="http://openweathermap.org/img/w/" + dataForecast.list[0].weather[0].icon + ".png";
 
    let tomorrowsTemp= dataForecast.list[0].main.temp;
    let twoDaysTemp= dataForecast.list[8].main.temp;
@@ -167,7 +173,7 @@ function displayHistory() {
 
   let historyButtonContainer=document.getElementById("history-button-container");
   historyButtonContainer.innerHTML="";
-  //clears all the buttons; every time i hit the search button, it prints a button from every array item
+  //clears all the buttons; every time i hit the search button, it prints a button of every array item
   
   // let userCityChoice=localStorage.getItem("cities")
   for (let i = 0; i < cities.length; i++) {
@@ -185,9 +191,33 @@ function displayHistory() {
   historyButtonContainer.appendChild(searchHistoryButtons);
     // console.log(cities);
   // console.log(historyList);
+  
+  
+  
+  
   searchHistoryButtons.addEventListener('click', function(){
-  console.log("button");
+  // console.log("button");
+  document.getElementById("big-white-header").textContent=(searchHistoryButtons.textContent) + " " + "(" + (todaysDate + ")");
+let searchHistoryButtonText=searchHistoryButtons.textContent;
+
+  let oneDayURL = baseURL + "data/2.5/weather?q=" + searchHistoryButtonText + "&appid=" + apiKey + "&units=imperial";
+  
+  document.getElementById("big-white-temp").textContent="Temp: " + (tempOneDay) + '\xB0' + "F";
+      document.getElementById("big-white-wind").textContent="Wind: " + (windSpeedOneDay) + " MPH";
+      document.getElementById("big-white-humidity").textContent="Humidity: " + (humidityOneDay) + " %";
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 });
+
+
 
   }}
   {
