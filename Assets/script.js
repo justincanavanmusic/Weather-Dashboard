@@ -8,20 +8,19 @@ let baseURL = "https://api.openweathermap.org/"
 
 let cities=JSON.parse(localStorage.getItem("cities")) || [];
 
+//makes the "cities" key into an object in local storage
 
                     //event listener
 searchButton.addEventListener('click', function() {
 
   let userCityChoice=userTextInput.value;
-    // console.log(city);
-  //cities=cities that ive saved
-  // let cities=JSON.parse(localStorage.getItem("cities")) || [];
-
-  cities.push(userCityChoice);
+   
+    cities.push(userCityChoice);
+    //pushes the tex
 
     localStorage.setItem("cities", (JSON.stringify(cities)));
-
-
+    //converts "cities" into JSON string
+   
    let oneDayURL = baseURL + "data/2.5/weather?q=" + userCityChoice + "&appid=" + apiKey + "&units=imperial";
 
     //today weather fetch
@@ -32,18 +31,17 @@ searchButton.addEventListener('click', function() {
   })
   .then(function (dataOneDay) {
 
-    // console.log(dataOneDay);
+    console.log(dataOneDay);
 
     let windSpeedOneDay=(dataOneDay.wind.speed);
     let humidityOneDay=(dataOneDay.main.humidity);
     let tempOneDay=(dataOneDay.main.temp);
-    let iconOneDay = "http://openweathermap.org/img/w/" + dataOneDay.weather[0].icon + ".png";
+    let iconOneDay ="" + "http://openweathermap.org/img/w/" + dataOneDay.weather[0].icon + ".png";
 
     document.getElementById("icon-one-day").setAttribute("src", iconOneDay);
-
-
-    // todays date
-    
+   
+   
+    // todays date 
     let today=new Date();
     let dayOfYear=today.getDate();
     // console.log(dayOfYear+1);
@@ -54,33 +52,25 @@ searchButton.addEventListener('click', function() {
                 //ALL NEEDED DATES
 
     let todaysDate=(monthOfYear) + "/" + (dayOfYear) + "/" + (year);
-
     let tomorrowsDate=(monthOfYear) + "/" + (dayOfYear + 1) + "/" + (year);
-
     let twoDaysDate=(monthOfYear) + "/" + (dayOfYear + 2) + "/" + (year);
-
     let threeDaysDate=(monthOfYear) + "/" + (dayOfYear + 3) + "/" + (year);
-
     let fourDaysDate=(monthOfYear) + "/" + (dayOfYear + 4) + "/" + (year);
+    let fiveDaysDate=(monthOfYear) + "/" + (dayOfYear + 5) + "/" + (year);
 
-    let fiveDaysDate=(monthOfYear) + "/" + (dayOfYear + 4) + "/" + (year);
-
-          //big white header text
-
-    let imageEl=document.createElement("img");
-    imageEl.setAttribute("src", iconOneDay);
+                  //big white box
+    // function fillWhiteBox() {
+      let icon=document.createElement("img");
+      icon.setAttribute("src", iconOneDay);
+      icon.setAttribute("id", "icon-one-day");
    
-    document.getElementById("big-white-header").textContent=`${userCityChoice} ${todaysDate}`;
-
-    document.getElementById("big-white-header").appendChild(imageEl);
-
-    document.getElementById("big-white-temp").textContent="Temp: " + (tempOneDay) + '\xB0' + "F";
-
-    // document.getElementById("big-white-wind").textContent="Wind: " + (`${windSpeed}`) + " MPH";
-
-    document.getElementById("big-white-wind").textContent="Wind: " + (windSpeedOneDay) + " MPH";
-
-    document.getElementById("big-white-humidity").textContent="Humidity: " + (humidityOneDay) + " %";
+      document.getElementById("big-white-header").textContent=(userCityChoice) + " " + "(" + (todaysDate + ")");
+      document.getElementById("big-white-header").appendChild(icon);
+      document.getElementById("big-white-temp").textContent="Temp: " + (tempOneDay) + '\xB0' + "F";
+      document.getElementById("big-white-wind").textContent="Wind: " + (windSpeedOneDay) + " MPH";
+      document.getElementById("big-white-humidity").textContent="Humidity: " + (humidityOneDay) + " %";
+    // }
+    // fillWhiteBox();
 
     //5 day forecast
 
@@ -101,58 +91,84 @@ searchButton.addEventListener('click', function() {
     //use dt (date time) instead of w/ for loop, start
     //if statement dt
 
+  // let tomorrowsIcon=dataForecast.list[0].weather[0].icon;
+  // let twoDaysIcon=dataForecast.list[0].weather[0].icon;
+  // let tomorrowsIcon=dataForecast.list[0].weather[0].icon;
+  // let tomorrowsIcon=dataForecast.list[0].weather[0].icon;
+  // let tomorrowsIcon=dataForecast.list[0].weather[0].icon;
+
+
    let tomorrowsTemp= dataForecast.list[0].main.temp;
-
    let twoDaysTemp= dataForecast.list[8].main.temp;
-
    let threeDaysTemp= dataForecast.list[16].main.temp;
-
    let fourDaysTemp= dataForecast.list[24].main.temp;
-
    let fiveDaysTemp= dataForecast.list[32].main.temp;
-
-   let tomorrowsIcon=dataForecast.list[0].weather[0].icon;
   //  console.log(tomorrowsIcon);
 
 
-            //5 day wind
+                    //5 day wind
 
    let tomorrowsWind= dataForecast.list[0].wind.speed;
-
    let twoDaysWind= dataForecast.list[8].wind.speed;
-
    let threeDaysWind= dataForecast.list[16].wind.speed;
-
    let fourDaysWind= dataForecast.list[24].wind.speed;
-
    let fiveDaysWind= dataForecast.list[32].wind.speed;
 
                     //5 days humidity
   
    let tomorrowsHumidity= dataForecast.list[0].main.humidity;
-
    let twoDaysHumidity= dataForecast.list[8].main.humidity;
-
    let threeDaysHumidity= dataForecast.list[16].main.humidity;
-   
    let fourDaysHumidity= dataForecast.list[24].main.humidity;
-
    let fiveDaysHumidity= dataForecast.list[32].main.humidity;
 
+                      //tomorrow forecast
+
    document.getElementById("tomorrow-date").textContent=(tomorrowsDate);
-
-   document.getElementById("tomorrow-icon").textContent=(tomorrowsIcon);
-
+  //  document.getElementById("tomorrow-icon").textContent=(tomorrowsIcon);
    document.getElementById("tomorrow-temp").textContent="Temp: " + (tomorrowsTemp)  + '\xB0' + "F";
-
    document.getElementById("tomorrow-wind").textContent="Wind: " + (tomorrowsWind) + " MPH";
-
    document.getElementById("tomorrow-humidity").textContent="Humidity: " + (tomorrowsHumidity) + " %";
+
+                    //2 days forecast
+
+   document.getElementById("two-days-date").textContent=(twoDaysDate);
+  //  document.getElementById("two-days-icon").textContent=(tomorrowsIcon);
+   document.getElementById("two-days-temp").textContent="Temp: " + (twoDaysTemp)  + '\xB0' + "F";
+   document.getElementById("two-days-wind").textContent="Wind: " + (twoDaysWind) + " MPH";
+   document.getElementById("two-days-humidity").textContent="Humidity: " + (twoDaysHumidity) + " %";
+  
+  
+   document.getElementById("three-days-date").textContent=(threeDaysDate);
+   //  document.getElementById("two-days-icon").textContent=(tomorrowsIcon);
+    document.getElementById("three-days-temp").textContent="Temp: " + (threeDaysTemp)  + '\xB0' + "F";
+    document.getElementById("three-days-wind").textContent="Wind: " + (threeDaysWind) + " MPH";
+    document.getElementById("three-days-humidity").textContent="Humidity: " + (threeDaysHumidity) + " %";
+
+    document.getElementById("four-days-date").textContent=(fourDaysDate);
+    //  document.getElementById("two-days-icon").textContent=(tomorrowsIcon);
+     document.getElementById("four-days-temp").textContent="Temp: " + (fourDaysTemp)  + '\xB0' + "F";
+     document.getElementById("four-days-wind").textContent="Wind: " + (fourDaysWind) + " MPH";
+     document.getElementById("four-days-humidity").textContent="Humidity: " + (fourDaysHumidity) + " %";
+
+     document.getElementById("five-days-date").textContent=(fiveDaysDate);
+    //  document.getElementById("two-days-icon").textContent=(tomorrowsIcon);
+     document.getElementById("five-days-temp").textContent="Temp: " + (fiveDaysTemp)  + '\xB0' + "F";
+     document.getElementById("five-days-wind").textContent="Wind: " + (fiveDaysWind) + " MPH";
+     document.getElementById("five-days-humidity").textContent="Humidity: " + (fiveDaysHumidity) + " %";
+
+
+   
 
   //  document.getElementById(tomorrow)
 displayHistory();
-
+                    //displayHistory function
 function displayHistory() {
+
+  let historyButtonContainer=document.getElementById("history-button-container");
+  historyButtonContainer.innerHTML="";
+  //clears all the buttons; every time i hit the search button, it prints a button from every array item
+  
   // let userCityChoice=localStorage.getItem("cities")
   for (let i = 0; i < cities.length; i++) {
     
@@ -160,19 +176,25 @@ function displayHistory() {
   // console.log(cities);
   //loop through cities, do this for each one
   // console.log(userCityChoice);
-  let historyButton=document.createElement("button")
-  historyButton.textContent=cities[i];
+  let searchHistoryButtons=document.createElement("button")
+ 
+  searchHistoryButtons.textContent=cities[i];
   // console.log(historyButton);
-  historyButton.classList.add("btn", "btn-primary");
+  searchHistoryButtons.classList.add("btn", "btn-primary");
   
-  let historyList=document.getElementById("history-button");
-  historyList.appendChild(historyButton);
+  historyButtonContainer.appendChild(searchHistoryButtons);
     // console.log(cities);
   // console.log(historyList);
+  searchHistoryButtons.addEventListener('click', function(){
+  console.log("button");
+});
+
+  }}
+  {
+   
+  }
 
   
-  }}
-
 
     })
 })
