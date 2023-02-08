@@ -57,7 +57,7 @@ searchButton.addEventListener('click', function() {
     let windSpeedOneDay=(dataOneDay.wind.speed);
     let humidityOneDay=(dataOneDay.main.humidity);
     let tempOneDay=(dataOneDay.main.temp);
-    let iconOneDay ="" + "http://openweathermap.org/img/w/" + dataOneDay.weather[0].icon + ".png";
+    let iconOneDay ="" + "https://openweathermap.org/img/w/" + dataOneDay.weather[0].icon + ".png";
 
                             //big white box
     
@@ -92,11 +92,11 @@ searchButton.addEventListener('click', function() {
     //if statement dt
 
   //created variables for an icon for each of the 5 days
-  let tomorrowsIcon="http://openweathermap.org/img/w/" + dataForecast.list[0].weather[0].icon + ".png";
-  let twoDaysIcon="http://openweathermap.org/img/w/" + dataForecast.list[8].weather[0].icon + ".png";
-  let threeDaysIcon="http://openweathermap.org/img/w/" + dataForecast.list[16].weather[0].icon + ".png";
-  let fourDaysIcon="http://openweathermap.org/img/w/" + dataForecast.list [24].weather[0].icon + ".png";
-  let fiveDaysIcon="http://openweathermap.org/img/w/" + dataForecast.list[0].weather[0].icon + ".png";
+  let tomorrowsIcon="https://openweathermap.org/img/w/" + dataForecast.list[0].weather[0].icon + ".png";
+  let twoDaysIcon="https://openweathermap.org/img/w/" + dataForecast.list[8].weather[0].icon + ".png";
+  let threeDaysIcon="https://openweathermap.org/img/w/" + dataForecast.list[16].weather[0].icon + ".png";
+  let fourDaysIcon="https://openweathermap.org/img/w/" + dataForecast.list [24].weather[0].icon + ".png";
+  let fiveDaysIcon="https://openweathermap.org/img/w/" + dataForecast.list[0].weather[0].icon + ".png";
 
   //created element for each icon, appended onto page
   document.getElementById("first-box").textContent = "";//makes it so the text area is cleared once the button is hit again so the icons don't compile
@@ -240,7 +240,7 @@ fetch(searchHistoryURL)
 
       //icon for big white box when search history buttons are clicked
 
-  let iconOneDay ="" + "http://openweathermap.org/img/w/" + dataSearch.weather[0].icon + ".png";
+  let iconOneDay ="" + "https://openweathermap.org/img/w/" + dataSearch.weather[0].icon + ".png";
   let icon=document.createElement("img");
   icon.setAttribute("src", iconOneDay);
   icon.setAttribute("id", "icon-one-day");
@@ -267,11 +267,11 @@ fetch(searchHistoryURL)
       .then(function(data5day){
 
         //variables of icons for each day
-        let tomorrowsIcon="http://openweathermap.org/img/w/" + data5day.list[0].weather[0].icon + ".png";
-        let twoDaysIcon="http://openweathermap.org/img/w/" + data5day.list[8].weather[0].icon + ".png";
-        let threeDaysIcon="http://openweathermap.org/img/w/" + data5day.list[16].weather[0].icon + ".png";
-        let fourDaysIcon="http://openweathermap.org/img/w/" + data5day.list [24].weather[0].icon + ".png";
-        let fiveDaysIcon="http://openweathermap.org/img/w/" + data5day.list [32].weather[0].icon + ".png";
+        let tomorrowsIcon="https://openweathermap.org/img/w/" + data5day.list[0].weather[0].icon + ".png";
+        let twoDaysIcon="https://openweathermap.org/img/w/" + data5day.list[8].weather[0].icon + ".png";
+        let threeDaysIcon="https://openweathermap.org/img/w/" + data5day.list[16].weather[0].icon + ".png";
+        let fourDaysIcon="https://openweathermap.org/img/w/" + data5day.list [24].weather[0].icon + ".png";
+        let fiveDaysIcon="https://openweathermap.org/img/w/" + data5day.list [32].weather[0].icon + ".png";
 
          //variables of temp for each day
         let tomorrowsTemp= data5day.list[0].main.temp;
