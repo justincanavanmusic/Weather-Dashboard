@@ -7,6 +7,12 @@ This repo contains the code to run a Weather App that gives the forecast for tod
 Live link below:
 https://justincanavanmusic.github.io/Weather-Dashboard/
 
-
 ![app screenshot](./Assets/Screenshot%202023-02-07%20at%205.54.24%20PM.png)
 ![app screenshot](./Assets/Screenshot%202023-02-07%20at%205.54.37%20PM.png)
+
+### Resources
+
+-bootcamp materials/instruction
+-office hours guidance from Teacher and TA
+-worked with study groups with Dom
+-guidance from AskBCS
