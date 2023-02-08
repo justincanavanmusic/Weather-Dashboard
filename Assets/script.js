@@ -17,7 +17,6 @@ let monthOfYear=today.getMonth()+1;
 let year=today.getFullYear(); 
 
             //uses variables above to create variables for ALL NEEDED DATEs
-
 let todaysDate=(monthOfYear) + "/" + (dayOfYear) + "/" + (year);
 let tomorrowsDate=(monthOfYear) + "/" + (dayOfYear + 1) + "/" + (year);
 let twoDaysDate=(monthOfYear) + "/" + (dayOfYear + 2) + "/" + (year);
@@ -356,14 +355,6 @@ fetch(searchHistoryURL)
      document.getElementById("fifth-box").appendChild(icon5);
 
       })
-
-    
-   
-   
-   
-   
-  
-
 
 
 
